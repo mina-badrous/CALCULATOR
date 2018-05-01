@@ -36,7 +36,11 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../calculator.c
+../keypad.c \
+../main.c \
+../lcd.c \
+../processing.c \
+../stack.c
 
 
 PREPROCESSING_SRCS += 
@@ -46,19 +50,35 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-calculator.o
+keypad.o \
+main.o \
+lcd.o \
+processing.o \
+stack.o
 
 
 OBJS_AS_ARGS +=  \
-calculator.o
+keypad.o \
+main.o \
+lcd.o \
+processing.o \
+stack.o
 
 
 C_DEPS +=  \
-calculator.d
+keypad.d \
+main.d \
+lcd.d \
+processing.d \
+stack.d
 
 
 C_DEPS_AS_ARGS +=  \
-calculator.d
+keypad.d \
+main.d \
+lcd.d \
+processing.d \
+stack.d
 
 
 OUTPUT_FILE_PATH +=calculator.elf
@@ -72,6 +92,14 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
+
+
 
 
 
