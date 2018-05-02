@@ -2,12 +2,12 @@
  * keypad.h
  *
  * Created: 4/28/2018 1:11:21 PM
- *  Author: Ramy Elfouly
  */ 
 //---------------------------------------------------------
 #ifndef KEYPAD_H_
 #define KEYPAD_H_
 //----------------------------------------------------------
+#include "int.h"
 #include "keypad-config.h"
 //--------------------------------------------------------
 #define NO_VALID_INPUT		0xFF
@@ -25,5 +25,8 @@
 //-------------------------------------------------------
 void vKeypadInit(void);
 unsigned char ucKeypadScan(void);
+#ifdef NO_KEYPAD_WAIT
+unsigned char ucKeypadScanDebounce(void);
+#endif
 //---------------------------------------------------
 #endif /* KEYPAD_H_ */

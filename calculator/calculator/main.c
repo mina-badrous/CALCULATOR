@@ -76,7 +76,11 @@ static void vMainInputCalculator(void)
 	//end clean up
 	while(1)
 	{
+		#ifdef NO_KEYPAD_WAIT
+		input_char=ucKeypadScanDebounce();  //read input
+		#else
 		input_char=ucKeypadScan();  //read input
+		#endif
 		if(input_char == NO_VALID_INPUT)
 		{
 			continue;   //skip
@@ -213,7 +217,12 @@ static void vMainOutputCalculator( void )
 	//wait till enter 'C'	
 	while(1)
 	{
-		input_char=ucKeypadScan();  //read input
+		#ifdef NO_KEYPAD_WAIT
+			input_char=ucKeypadScanDebounce();  //read input
+		#else
+			input_char=ucKeypadScan();  //read input
+		#endif
+		
 		if(input_char == 'C') break;
 	}
 	g_e_calculator_state=INPUT_STATE;
@@ -226,7 +235,11 @@ static void vMainErrorCalculator(void)
 	u8LcdSendString((char *)g_error_string[CALCULATOR_MATH_ERROR]);
 	while(1)
 	{
+		#ifdef NO_KEYPAD_WAIT
+		input_char=ucKeypadScanDebounce();  //read input
+		#else
 		input_char=ucKeypadScan();  //read input
+		#endif
 		if(input_char == 'C') break;
 	}
 	g_e_calculator_state=INPUT_STATE;

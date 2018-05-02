@@ -71,7 +71,10 @@
 		if (line != NO_VALID_INPUT) 
 		{
 			//wait till the input is gone
-			while(ALL_INPUTS_CHECK == IS_STILL_VALID);
+			#ifndef NO_KEYPAD_WAIT
+				while(ALL_INPUTS_CHECK == IS_STILL_VALID);
+			#endif
+			
 			//save the mapped key[row][line]
 			result = s_keypad_mapping[row][line];
 			//break from the loop
@@ -82,4 +85,40 @@
 	//return the mapped key	 
 	return result;
  }
+#ifdef NO_KEYPAD_WAIT
+unsigned char ucKeypadScanDebounce( void )
+{
+	static u8 key_last_state=0;
+	u8 key_state=0;
+	static u64 key_time_pressed=0;
+	//static u8 key_time_not_pressed=0;
+	//read button
+	key_state=ucKeypadScan();
+	//check the last state of the key
+	if(key_state ==key_last_state)
+	{
+		key_time_pressed++;
+		if(key_time_pressed==KEY_PRESSED_TIME)
+		{
+			key_time_pressed=0;
+			key_last_state=key_state;
+			return key_state;
+			
+		}
+		else
+		{
+			key_last_state=key_state;
+			return NO_VALID_INPUT;
+		}
+		
+	}
+	else
+	{	
+		key_last_state=key_state;
+		return NO_VALID_INPUT;
+	}
+	
+	
+}
+#endif
  //-----------------------------------------------------------------
